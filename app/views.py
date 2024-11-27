@@ -6,6 +6,8 @@ from rest_framework import filters
 from rest_framework import generics
 from rest_framework import permissions
 
+
+
 class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -17,6 +19,11 @@ class UserView(generics.ListCreateAPIView):
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'email', 'created_at']
+
+
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
@@ -34,3 +41,4 @@ class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     
+
